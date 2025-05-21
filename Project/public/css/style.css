@@ -1,0 +1,12 @@
+body {
+  font-family: "Helvetica Neue", Inter, Arial, sans-serif;
+}
+
+.navbar .nav-link {
+  font-weight: 500;
+}
+
+img {
+  max-height: 100px;
+  object-fit: contain;
+}

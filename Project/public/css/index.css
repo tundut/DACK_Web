@@ -1,0 +1,79 @@
+#featureProductCarousel {
+    width: 800px;           /* Chiều rộng cố định */
+    height: 400px;          /* Chiều cao cố định */
+    margin: 0 auto;         /* Canh giữa */
+    overflow: hidden;       /* Ẩn phần tràn nếu có */
+    background-color: #f8f9fa; /* Màu nền nhạt giúp dễ nhìn */
+    border-radius: 8px;
+    padding: 10px;
+}
+
+#featureProductCarousel .carousel-item {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#featureProductCarousel .card {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+#featureProductCarousel .card-img-top {
+    max-height: 290px;
+    object-fit: contain; /* Giữ nguyên tỷ lệ ảnh mà không bị vỡ */
+}
+
+#accessoriesCarousel {
+    width: 800px;
+    height: 400px;
+    margin: 0 auto;
+    overflow: hidden;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+#accessoriesCarousel .carousel-inner {
+    height: 100%;
+}
+
+#accessoriesCarousel .carousel-item {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.accessory-card {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: transparent;
+}
+
+.accessory-card .card-img-top {
+    max-height: 290px;
+    object-fit: contain;
+    padding: 10px;
+}
+
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: black;
+    background-image: none; /* Xóa icon mặc định */
+    width: 2rem;
+    height: 2rem;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3E%3C/svg%3E");
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3E%3C/svg%3E");
+    mask-size: cover;
+    -webkit-mask-size: cover;
+}
+.carousel-control-next-icon {
+    transform: rotate(180deg); /* Quay ngược lại mũi tên trái để thành mũi tên phải */
+}

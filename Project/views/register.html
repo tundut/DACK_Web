@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="vi">
+{{header}}
+<link rel="stylesheet" href="/public/css/register.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<body>
+  <div class="container-fluid register-container d-flex">
+    <div class="register-form">
+        <div class="welcome-text text-center">CREATE ACCOUNT</div>
+        <form id="register-form" class="mt-4" method="POST">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <input type="text" id="fullname" name="fullname" class="form-control" placeholder="Fullname" required />
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" id="phone" name="phone" class="form-control" placeholder="Phone number" required />
+                    </div>
+                    <div class="mb-3">
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Email" required />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <input type="text" id="username" name="username" class="form-control" placeholder="Username" required />
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required />
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirm Password" required />
+                    </div>
+
+                </div>
+            </div>
+            <div class="mb-2 text-center">
+                <button type="submit" class="btn btn-register">Register</button>
+            </div>
+            <div class="text-center">
+                <a href="/login" class="text-decoration-none text-muted">Have an account?</a>
+            </div>
+        </form>
+
+        <div class="divider">or</div>
+        <div class="text-center d-flex justify-content-center gap-3 mt-3">
+        <a href="#" class="btn btn-outline-dark btn-icon">
+            <i class="fab fa-google"></i>
+        </a>
+        <a href="#" class="btn btn-outline-dark btn-icon">
+            <i class="fab fa-apple"></i>
+        </a>
+        <a href="#" class="btn btn-outline-dark btn-icon">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        </div>
+    </div>
+  </div>
+  <script src="/public/js/register.js"></script>
+</body>
+</html>
