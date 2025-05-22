@@ -1,6 +1,7 @@
 const TaiKhoan = require('../models/TaiKhoan');
 const KhachHang = require('../models/KhachHang');
 const { VaiTro } = require('../utils/constants');
+const session = require('../config/session');
 
 async function register(req, res) {
   try {
@@ -34,6 +35,7 @@ async function login(req, res) {
 
     if (user) {
       const redirect = JSON.stringify({ redirect: '/home' });
+      req.session.user = user
       res.writeHead(200, {
         'Content-Type': 'application/json',
       });
@@ -57,4 +59,21 @@ async function login(req, res) {
   }
 }
 
-module.exports = { register, login };
+async function logout(req, res) {
+  try {
+    req.session.reset(); // Xoá session
+
+    res.writeHead(302, { Location: '/home' });
+    res.end();
+  } catch (error) {
+    console.error('Lỗi khi đăng xuất:', error);
+    const payload = JSON.stringify({ message: 'Lỗi khi đăng xuất' });
+    res.writeHead(500, {
+      'Content-Type': 'application/json',
+      'Content-Length': Buffer.byteLength(payload)
+    });
+    res.end(payload);
+  }
+}
+
+module.exports = { register, login, logout };

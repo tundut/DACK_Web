@@ -30,6 +30,8 @@ const renderPage = (res, page, extraReplacements = {}) => {
                 pageData = pageData.replace('{{header}}', headerData);
                 pageData = pageData.replace('{{footer}}', footerData);
 
+
+
                 // Thay thế thêm nếu có
                 for (const key in extraReplacements) {
                     pageData = pageData.replace(new RegExp(`{{${key}}}`, 'g'), extraReplacements[key]);
@@ -44,19 +46,29 @@ const renderPage = (res, page, extraReplacements = {}) => {
 
 const pageRouter = (req, res) => {
     const url = req.url;
+    const ten_dang_nhap = req.session.user 
+        ? `<div class="dropdown">
+                <a href="#" class="dropdown-toggle text-dark text-decoration-none fw-bold" data-bs-toggle="dropdown" aria-expanded="false">${req.session.user.ten_dang_nhap}</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                </ul>
+            </div>
+        `
+        : `<a href="/login" class="ms-2 text-decoration-none text-dark fw-bold">Login</a>`;
 
     if ((url === '/home' || url === '/') && req.method === 'GET') {
-        renderPage(res, 'index.html');
+        renderPage(res, 'index.html', { ten_dang_nhap: ten_dang_nhap });
         return true;
     }
 
     if (url === '/login' && req.method === 'GET') {
-        renderPage(res, 'login.html');
+        renderPage(res, 'login.html', { ten_dang_nhap: ten_dang_nhap });
         return true;
     }
 
     if (url === '/register' && req.method === 'GET') {
-        renderPage(res, 'register.html');
+        renderPage(res, 'register.html', { ten_dang_nhap: ten_dang_nhap });
         return true;
     }
 

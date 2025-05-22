@@ -31,6 +31,11 @@ function authRouter(req, res) {
         return true;
     }
 
+    if (req.method === 'GET' && req.url === '/logout') {
+        authController.logout(req, res);
+        return true;
+    }
+
     return false;
 }
 

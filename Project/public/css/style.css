@@ -10,3 +10,7 @@ img {
   max-height: 100px;
   object-fit: contain;
 }
+
+.dropdown-item:hover {
+  background-color: #e9ecef;
+}
