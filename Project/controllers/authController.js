@@ -1,7 +1,7 @@
 const TaiKhoan = require('../models/TaiKhoan');
 const KhachHang = require('../models/KhachHang');
+const NguoiDung = require('../models/NguoiDung');
 const { VaiTro } = require('../utils/constants');
-const session = require('../config/session');
 
 async function register(req, res) {
   try {
@@ -31,11 +31,14 @@ async function login(req, res) {
   try {
     const { ten_dang_nhap, mat_khau } = req.body;
 
-    const user = await TaiKhoan.login(ten_dang_nhap, mat_khau);
+    const account = await TaiKhoan.login(ten_dang_nhap, mat_khau);
 
-    if (user) {
-      const redirect = JSON.stringify({ redirect: '/home' });
+    if (account) {
+      user = await NguoiDung.layNguoiDung(account.id_tai_khoan);
       req.session.user = user
+      
+      const redirect = JSON.stringify({ redirect: '/home' });
+      req.session.account = account
       res.writeHead(200, {
         'Content-Type': 'application/json',
       });

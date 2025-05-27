@@ -4,6 +4,20 @@ class ThanhToan {
         this.phuong_thuc = phuong_thuc;
         this.trang_thai = trang_thai;
     }
+
+    static async themThanhToan(phuong_thuc, trang_thai) {
+        const { data, error } = await supabase
+            .from('thanhtoan')
+            .insert({ 
+                phuong_thuc: phuong_thuc, 
+                trang_thai: trang_thai 
+            })
+            .select();
+        if (error) {
+            throw new Error(error.message);
+        }
+        return data[0];
+    }
 }
 
 module.exports = ThanhToan;

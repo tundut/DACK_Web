@@ -19,6 +19,17 @@ class NguoiDung {
         }
         return data[0];
     }
+
+    static async layNguoiDung(id_tai_khoan) {
+        const { data, error } = await supabase
+            .from('nguoidung')
+            .select('*')
+            .eq('id_tai_khoan', id_tai_khoan);
+        if (error) {
+            throw new Error(error.message);
+        }
+        return data[0];
+    }
 }
 
 module.exports = NguoiDung;

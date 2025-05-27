@@ -26,7 +26,10 @@ class TaiKhoan {
     }
 
     static async login(ten_dang_nhap, mat_khau) {
-        const { data, error } = await supabase.from('taikhoan').select('*').eq('ten_dang_nhap', ten_dang_nhap);
+        const { data, error } = await supabase
+            .from('taikhoan')
+            .select('*')
+            .eq('ten_dang_nhap', ten_dang_nhap);
         if (error) {
             throw new Error(error.message);
         }
