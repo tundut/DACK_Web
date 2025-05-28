@@ -5,6 +5,7 @@ class ThanhToan {
         this.phuong_thuc = phuong_thuc;
         this.trang_thai = trang_thai;
     }
+
     static async create(phuong_thuc) {
         const { data, error } = await supabase
             .from('thanhtoan')
@@ -14,5 +15,21 @@ class ThanhToan {
         const record = Array.isArray(data) ? data[0] : data;
         return record?.id_thanh_toan;
     }
+
+    static async themThanhToan(phuong_thuc, trang_thai) {
+        const { data, error } = await supabase
+            .from('thanhtoan')
+            .insert({ 
+                phuong_thuc: phuong_thuc, 
+                trang_thai: trang_thai 
+            })
+            .select();
+        if (error) {
+            throw new Error(error.message);
+        }
+        return data[0];
+
+    }
 }
+
 module.exports = ThanhToan;

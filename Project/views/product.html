@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="vi">
+{{header}}
+<link rel="stylesheet" href="/public/css/product.css">
+<body>
+
+    
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="hero-title">Mac Store</h1>
+            <p class="hero-subtitle">Khám phá bộ sưu tập Mac mới nhất</p>
+            <div class="hero-buttons">
+                <a href="#products" class="btn-apple">Xem sản phẩm</a>
+                <a href="#features" class="btn-apple-outline">Tìm hiểu thêm</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Grid -->
+    <section class="product-grid" id="products">
+        <div class="container">
+            <div id="loading-state" class="loading">
+                <div class="spinner"></div>
+                <p>Đang tải sản phẩm...</p>
+            </div>
+            
+            <div id="error-state" class="error-message" style="display: none;">
+                <h3>Không thể tải sản phẩm</h3>
+                <p>Vui lòng thử lại sau hoặc kiểm tra kết nối mạng.</p>
+                <button class="btn-apple" onclick="productApp.loadAllProducts()">Thử lại</button>
+            </div>
+            
+            <div id="products-container" class="row" style="display: none;">
+                <!-- Products will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Section -->
+    <section class="feature-section" id="features">
+        <div class="container">
+            <h2 class="feature-title">Tại sao chọn Mac Store?</h2>
+            <p class="feature-description">
+                Trải nghiệm mua sắm Mac tuyệt vời với công nghệ hiện đại và dịch vụ chuyên nghiệp.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <h3>Giao hàng nhanh</h3>
+                    <p>Giao hàng miễn phí trong 24h với đơn hàng trên 10 triệu đồng.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Bảo hành chính hãng</h3>
+                    <p>Bảo hành chính hãng Apple với dịch vụ hỗ trợ 24/7.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Hỗ trợ kỹ thuật</h3>
+                    <p>Đội ngũ kỹ thuật viên chuyên nghiệp sẵn sàng hỗ trợ bạn.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <script src="../public/js/product.js"></script>
+</body>
+</html>

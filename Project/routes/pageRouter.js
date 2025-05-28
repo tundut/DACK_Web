@@ -1,5 +1,7 @@
 const fs = require('fs');
 const path = require('path');
+const productRouter = require('./productRouter');
+const danhMucController = require('../controllers/danhMucController');
 
 const renderPage = (res, page, extraReplacements = {}) => {
     const headerPath = path.join(__dirname, '..', 'views', 'header.html');
@@ -30,8 +32,6 @@ const renderPage = (res, page, extraReplacements = {}) => {
                 pageData = pageData.replace('{{header}}', headerData);
                 pageData = pageData.replace('{{footer}}', footerData);
 
-
-
                 // Thay thế thêm nếu có
                 for (const key in extraReplacements) {
                     pageData = pageData.replace(new RegExp(`{{${key}}}`, 'g'), extraReplacements[key]);
@@ -44,10 +44,18 @@ const renderPage = (res, page, extraReplacements = {}) => {
     });
 };
 const pageRouter = (req, res) => {
+    // Ưu tiên xử lý API sản phẩm trước
+    if (productRouter(req, res)) return true;
+
+    // API lấy danh mục
+    if (req.url === '/api/danhmuc' && req.method === 'GET') {
+        return danhMucController.getAllDanhMuc(req, res);
+    }
+
     const url = req.url;
-    const ten_dang_nhap = req.session.user 
+    const ten_dang_nhap = req.session.account
         ? `<div class="dropdown">
-                <a href="#" class="dropdown-toggle text-dark text-decoration-none fw-bold" data-bs-toggle="dropdown" aria-expanded="false">${req.session.user.ten_dang_nhap}</a>
+                <a href="#" class="dropdown-toggle text-dark text-decoration-none fw-bold" data-bs-toggle="dropdown" aria-expanded="false">${req.session.account.ten_dang_nhap}</a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="#">Profile</a></li>
                     <li><a class="dropdown-item" href="/logout">Logout</a></li>
@@ -78,8 +86,17 @@ const pageRouter = (req, res) => {
     }
     
 
+    if (url === '/orders' && req.method === 'GET') {
+        renderPage(res, 'orders.html', { ten_dang_nhap: ten_dang_nhap });
+        return true;
+    }
+    if ((url === '/admin') && req.method === 'GET') {
+        renderPage(res, 'manage.html', { ten_dang_nhap: ten_dang_nhap });
+        return true;
+    }
+
     return false;
     
 };
 
-module.exports = pageRouter;
+module.exports = { renderPage, pageRouter };
