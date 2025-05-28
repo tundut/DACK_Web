@@ -33,7 +33,24 @@ function addRouter(req, res) {
   } 
   
   if (url === '/product/add-product' && method === 'POST') {
-    productController.themSanPham(req, res);
+    let body = '';
+    req.on('data', chunk => body += chunk);
+    req.on('end', async () => {
+      try {
+        req.body = JSON.parse(body);
+        const result = await productController.themSanPham(req.body);
+        const payload = JSON.stringify(result);
+        res.writeHead(201, { 'Content-Type': 'application/json' });
+        res.end(payload);
+      }
+      catch (error) {
+        console.error('Lỗi khi thêm sản phẩm:', error);
+        const payload = JSON.stringify({ message: 'Lỗi thêm sản phẩm', error: error.message });
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(payload);
+      }
+    });
+    return true;
   } 
 
   if (url === '/product/list-products' && method === 'GET') {
