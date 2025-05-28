@@ -5,6 +5,7 @@ const cartController = require('../controllers/cartController'); // Thêm dòng 
 const ordersRouter = require('./ordersRouter');
 const addRouter = require('./addRouter');
 const session = require('../config/session');
+const productRouter = require('./productRouter'); // Sửa lỗi ReferenceError
 
 const handleRequest = (req, res) => {
     session(req, res, async () => {
