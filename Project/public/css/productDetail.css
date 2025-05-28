@@ -1,0 +1,22 @@
+#product-colors .btn.selected,
+#product-thumbnails img.selected {
+  border: 2.5px solid #0071e3 !important;
+}
+
+#product-colors .btn {
+  border: 2px solid #eee;
+  transition: border 0.2s;
+}
+
+#product-colors .btn:hover {
+  border: 2px solid #0071e3;
+}
+
+#product-thumbnails img {
+  border: 2px solid transparent;
+  transition: border 0.2s;
+}
+
+#product-thumbnails img:hover {
+  border: 2px solid #0071e3;
+}

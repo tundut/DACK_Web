@@ -1,5 +1,7 @@
 const fs = require('fs');
 const path = require('path');
+const productRouter = require('./productRouter');
+const danhMucController = require('../controllers/danhMucController');
 
 const renderPage = (res, page, extraReplacements = {}) => {
     const headerPath = path.join(__dirname, '..', 'views', 'header.html');
@@ -30,8 +32,6 @@ const renderPage = (res, page, extraReplacements = {}) => {
                 pageData = pageData.replace('{{header}}', headerData);
                 pageData = pageData.replace('{{footer}}', footerData);
 
-
-
                 // Thay thế thêm nếu có
                 for (const key in extraReplacements) {
                     pageData = pageData.replace(new RegExp(`{{${key}}}`, 'g'), extraReplacements[key]);
@@ -45,6 +45,14 @@ const renderPage = (res, page, extraReplacements = {}) => {
 };
 
 const pageRouter = (req, res) => {
+    // Ưu tiên xử lý API sản phẩm trước
+    if (productRouter(req, res)) return true;
+
+    // API lấy danh mục
+    if (req.url === '/api/danhmuc' && req.method === 'GET') {
+        return danhMucController.getAllDanhMuc(req, res);
+    }
+
     const url = req.url;
     const ten_dang_nhap = req.session.account
         ? `<div class="dropdown">
