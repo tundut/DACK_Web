@@ -43,7 +43,6 @@ const renderPage = (res, page, extraReplacements = {}) => {
         });
     });
 };
-
 const pageRouter = (req, res) => {
     const url = req.url;
     const ten_dang_nhap = req.session.user 
@@ -56,6 +55,8 @@ const pageRouter = (req, res) => {
             </div>
         `
         : `<a href="/login" class="ms-2 text-decoration-none text-dark fw-bold">Login</a>`;
+
+        
 
     if ((url === '/home' || url === '/') && req.method === 'GET') {
         renderPage(res, 'index.html', { ten_dang_nhap: ten_dang_nhap });
@@ -71,8 +72,14 @@ const pageRouter = (req, res) => {
         renderPage(res, 'register.html', { ten_dang_nhap: ten_dang_nhap });
         return true;
     }
+    if (url === '/cart' && req.method === 'GET') {
+        renderPage(res, 'cart.html', { ten_dang_nhap: ten_dang_nhap });
+        return true;
+    }
+    
 
     return false;
+    
 };
 
 module.exports = pageRouter;
