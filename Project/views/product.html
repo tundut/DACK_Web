@@ -3,9 +3,6 @@
 {{header}}
 <link rel="stylesheet" href="/public/css/product.css">
 <body>
-
-    
-
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="container">
@@ -18,25 +15,33 @@
         </div>
     </section>
 
-    <!-- Product Grid -->
-    <section class="product-grid" id="products">
-        <div class="container">
-            <div id="loading-state" class="loading">
-                <div class="spinner"></div>
-                <p>Đang tải sản phẩm...</p>
+    <!-- Product Grid + Sidebar Danh mục -->
+    <div style="display: flex; align-items: flex-start; margin-top: 32px;">
+        <!-- Sidebar Danh mục -->
+        <aside id="danhmuc" style="width: 220px;  padding: 20px; border-radius: 8px; margin-right: 20px; min-height: 400px;">
+            <h3 style="margin-top: 0;">Danh mục</h3>
+            <ul id="danhmuc-list" class="list-group" style="list-style: none; padding: 0; background: transparent; border: none;">
+                <li>Đang tải...</li>
+            </ul>
+        </aside>
+        <!-- Product Grid -->
+        <section class="product-grid" id="products" style="flex: 1;">
+            <div class="container">
+                <div id="loading-state" class="loading">
+                    <div class="spinner"></div>
+                    <p>Đang tải sản phẩm...</p>
+                </div>
+                <div id="error-state" class="error-message" style="display: none;">
+                    <h3>Không thể tải sản phẩm</h3>
+                    <p>Vui lòng thử lại sau hoặc kiểm tra kết nối mạng.</p>
+                    <button class="btn-apple" onclick="productApp.loadAllProducts()">Thử lại</button>
+                </div>
+                <div id="products-container" class="row" style="display: none;">
+                    <!-- Products will be dynamically loaded here -->
+                </div>
             </div>
-            
-            <div id="error-state" class="error-message" style="display: none;">
-                <h3>Không thể tải sản phẩm</h3>
-                <p>Vui lòng thử lại sau hoặc kiểm tra kết nối mạng.</p>
-                <button class="btn-apple" onclick="productApp.loadAllProducts()">Thử lại</button>
-            </div>
-            
-            <div id="products-container" class="row" style="display: none;">
-                <!-- Products will be dynamically loaded here -->
-            </div>
-        </div>
-    </section>
+        </section>
+    </div>
 
     <!-- Feature Section -->
     <section class="feature-section" id="features">
@@ -45,7 +50,6 @@
             <p class="feature-description">
                 Trải nghiệm mua sắm Mac tuyệt vời với công nghệ hiện đại và dịch vụ chuyên nghiệp.
             </p>
-            
             <div class="feature-grid">
                 <div class="feature-item">
                     <div class="feature-icon">
@@ -71,12 +75,11 @@
             </div>
         </div>
     </section>
-
-    
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
     <script src="../public/js/product.js"></script>
+    <script>
+    
+    </script>
 </body>
 </html>

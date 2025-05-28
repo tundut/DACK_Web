@@ -368,3 +368,33 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Style nút danh mục giống sidebar hiện đại */
+#danhmuc .list-group-item-action {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 16px !important;
+  background: transparent;
+  border: none;
+  padding: 12px 18px;
+  margin-bottom: 8px;
+  font-size: 1.08rem;
+  font-weight: 500;
+  color: #222;
+  box-shadow: none;
+  transition: background 0.18s, color 0.18s, font-weight 0.18s, box-shadow 0.18s;
+}
+#danhmuc .list-group-item-action:hover {
+  background: #f1f5ff;
+  color: #2563eb;
+  font-weight: 600;
+  box-shadow: 0 2px 8px 0 rgba(80,120,255,0.06);
+}
+#danhmuc .list-group-item-action.active, #danhmuc .list-group-item.active {
+  background: #e6edfe;
+  color: #2563eb;
+  font-weight: 700;
+  box-shadow: 0 2px 8px 0 rgba(80,120,255,0.10);
+  border: none;
+}

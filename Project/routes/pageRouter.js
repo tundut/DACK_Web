@@ -80,6 +80,16 @@ const pageRouter = (req, res) => {
         return true;
     }
 
+    if (url === '/product' && req.method === 'GET') {
+        renderPage(res, 'product.html', { ten_dang_nhap: ten_dang_nhap });
+        return true;
+    }
+
+    if (url.startsWith('/product/') && req.method === 'GET') {
+        renderPage(res, 'productDetail.html', { ten_dang_nhap: ten_dang_nhap });
+        return true;
+    }
+
     return false;
 };
 

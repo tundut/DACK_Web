@@ -14,6 +14,7 @@ async function getAllProducts(req, res) {
       price: sp.gia,
       stock: sp.so_luong_ton_kho,
       image: sp.hinh_anh,
+      id_danh_muc: sp.id_danh_muc,
       ten_danh_muc: sp.danhmuc ? sp.danhmuc.ten_danh_muc : '',
     }));
     const payload = JSON.stringify(products);
