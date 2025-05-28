@@ -89,17 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
         })
-        .catch(err => {
-            console.error(err);
-            tableBody.innerHTML = `
-                <tr>
-                    <td colspan="4" class="text-center text-danger">
-                        <i class="fas fa-exclamation-circle me-2"></i>
-                        Có lỗi xảy ra khi tải dữ liệu
-                    </td>
-                </tr>
-            `;
-        });
+        .catch(err => console.error(err));
 });
 
 function formatDate(dateString) {

@@ -1,7 +1,7 @@
 // === addRouter.js ===
 const productController = require('../controllers/manageController');
 
-function addRouter(req, res) {
+async function addRouter(req, res) {
   const url = req.url;
   const method = req.method;
 
@@ -10,11 +10,11 @@ function addRouter(req, res) {
     productController.layDanhSachDanhMuc(req, res);
 
   } 
-  
+
   if (url === '/product/add-category' && method === 'POST') {
     let body = '';
     req.on('data', chunk => body += chunk);
-    req.on('end', async () => {
+      req.on('end', async() => {
       try {
         req.body = JSON.parse(body);
         const result = await productController.themDanhMuc(req.body);
@@ -31,7 +31,7 @@ function addRouter(req, res) {
     });
     return true;
   } 
-  
+
   if (url === '/product/add-product' && method === 'POST') {
     productController.themSanPham(req, res);
   } 

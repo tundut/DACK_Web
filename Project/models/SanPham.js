@@ -43,12 +43,24 @@ class SanPham {
     }
 
     static async layTatCaSanPham() {
-        const { data, error } = await supabase.from('sanpham').select('*');
+        const { data, error } = await supabase
+            .from('sanpham')
+            .select('*, danhmuc(ten_danh_muc)');
         if (error) {
             console.error('Lỗi Supabase:', error);
             return [];
         }
         return data || [];
+    }
+
+    static async laySanPhamTheoId(id) {
+        const { data, error } = await supabase
+            .from('sanpham')
+            .select('*')
+            .eq('id_san_pham', id)
+            .single();
+        if (error) throw new Error(error.message);
+        return data;
     }
 }
 

@@ -1,17 +1,66 @@
-const { getAllProducts, getProductById } = require('../controllers/productController');
+const productController = require('../controllers/productController');
+const danhMucController = require('../controllers/danhMucController');
 
-function productRouter(req, res) {
-  if (req.method === 'GET' && req.url === '/api/products') {
-    getAllProducts(req, res);
-    return true;
-  }
-  // Route lấy chi tiết sản phẩm
-  if (req.method === 'GET' && req.url.startsWith('/api/products/')) {
-    const id = req.url.split('/').pop();
-    getProductById(req, res, id);
-    return true;
-  }
-  return false;
+async function productRouter(req, res) {
+    if (req.method === 'GET' && req.url === '/api/products') {
+        try {
+            const products = await productController.getAllProducts();
+            const payload = JSON.stringify(products);
+            res.writeHead(200, {
+                'Content-Type': 'application/json',
+                'Content-Length': Buffer.byteLength(payload),
+            });
+            res.end(payload);
+        } catch (err) {
+            console.error('Lỗi khi lấy sản phẩm:', err);
+            const payload = JSON.stringify({ message: 'Lỗi khi lấy sản phẩm' });
+            res.writeHead(500, {
+                'Content-Type': 'application/json',
+                'Content-Length': Buffer.byteLength(payload),
+            });
+            res.end(payload);
+        }
+        return true;
+    }
+
+    if (req.method === 'GET' && req.url.startsWith('/api/products/')) {
+        const id = req.url.split('/').pop();
+        try {
+            const product = await productController.getProductById(id);
+            const payload = JSON.stringify(product);
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(payload);
+        } catch (err) {
+            console.error('Lỗi khi lấy chi tiết sản phẩm:', err);
+            const payload = JSON.stringify({ message: 'Không tìm thấy sản phẩm' });
+            res.writeHead(404, { 'Content-Type': 'application/json' });
+            res.end(payload);
+        }
+        return true;
+    }
+
+    if (req.url === '/api/danhmuc' && req.method === 'GET') {
+        try {
+        const danhMucList = await danhMucController.getAllDanhMuc();
+        const payload = JSON.stringify(danhMucList);
+        res.writeHead(200, {
+            'Content-Type': 'application/json',
+            'Content-Length': Buffer.byteLength(payload),
+        });
+        res.end(payload);
+        } catch (err) {
+        console.error('[DanhMucRouter] Lỗi khi lấy danh mục:', err);
+        const errorPayload = JSON.stringify({ message: 'Lỗi khi lấy danh mục' });
+        res.writeHead(500, {
+            'Content-Type': 'application/json',
+            'Content-Length': Buffer.byteLength(errorPayload),
+        });
+        res.end(errorPayload);
+        }
+        return true;
+    } 
+
+    return false;
 }
 
-module.exports = productRouter; 
+module.exports = productRouter;

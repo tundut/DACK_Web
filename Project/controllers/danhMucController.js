@@ -1,19 +1,8 @@
-const { supabase } = require('../config/supabaseClient');
+const DanhMuc = require('../models/DanhMuc');
 
-async function getAllDanhMuc(req, res) {
-  try {
-    const { data, error } = await supabase
-      .from('danhmuc')
-      .select('id_danh_muc, ten_danh_muc');
-    if (error) throw error;
-
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify(data || []));
-  } catch (err) {
-    console.error('[DanhMucController] Lỗi khi lấy danh mục:', err);
-    res.writeHead(500, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ message: 'Lỗi khi lấy danh mục' }));
-  }
+async function getAllDanhMuc() {
+  data = await DanhMuc.layTatCaDanhMuc();
+  return data || [];
 }
 
-module.exports = { getAllDanhMuc }; 
+module.exports = { getAllDanhMuc };

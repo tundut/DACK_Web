@@ -1,6 +1,6 @@
 const authController = require('../controllers/authController');
 
-function authRouter(req, res) {
+async function authRouter(req, res) {
     if (req.method === 'POST' && req.url === '/register') {
         let body = '';
         req.on('data', chunk => body += chunk);

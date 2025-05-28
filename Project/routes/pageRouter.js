@@ -44,14 +44,6 @@ const renderPage = (res, page, extraReplacements = {}) => {
     });
 };
 const pageRouter = (req, res) => {
-    // Ưu tiên xử lý API sản phẩm trước
-    if (productRouter(req, res)) return true;
-
-    // API lấy danh mục
-    if (req.url === '/api/danhmuc' && req.method === 'GET') {
-        return danhMucController.getAllDanhMuc(req, res);
-    }
-
     const url = req.url;
     const ten_dang_nhap = req.session.account
         ? `<div class="dropdown">
@@ -85,7 +77,6 @@ const pageRouter = (req, res) => {
         return true;
     }
     
-
     if (url === '/product' && req.method === 'GET') {
         renderPage(res, 'product.html', { ten_dang_nhap: ten_dang_nhap });
         return true;
@@ -100,6 +91,7 @@ const pageRouter = (req, res) => {
         renderPage(res, 'orders.html', { ten_dang_nhap: ten_dang_nhap });
         return true;
     }
+
     if ((url === '/admin') && req.method === 'GET') {
         renderPage(res, 'manage.html', { ten_dang_nhap: ten_dang_nhap });
         return true;
