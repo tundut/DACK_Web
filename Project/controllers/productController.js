@@ -52,8 +52,8 @@ module.exports = {
   async themSanPham(req, res) {
     try {
       const body = await readRequestBody(req);
-      const { ten_san_pham, gia, mo_ta, id_danh_muc, so_luong_ton, hinh_anh } = body;
-      await SanPham.themSanPham(ten_san_pham, gia, mo_ta, id_danh_muc, so_luong_ton, hinh_anh);
+      const { ten_san_pham, gia, mo_ta, id_danh_muc, so_luong_ton_kho, hinh_anh } = body;
+      await SanPham.themSanPham(ten_san_pham, gia, mo_ta, id_danh_muc, so_luong_ton_kho, hinh_anh);
       res.writeHead(201, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ message: 'Thêm sản phẩm thành công' }));
     } catch (err) {
