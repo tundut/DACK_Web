@@ -16,7 +16,8 @@ class DonHang {
                     *,
                     sanpham (
                         ten_san_pham,
-                        gia
+                        gia,
+                        hinh_anh
                     )
                 )
             `)
