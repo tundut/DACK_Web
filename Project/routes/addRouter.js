@@ -1,5 +1,5 @@
 // === addRouter.js ===
-const productController = require('../controllers/productController');
+const productController = require('../controllers/manageController');
 
 function addRouter(req, res) {
   const url = req.url;
