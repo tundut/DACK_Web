@@ -54,7 +54,7 @@ const pageRouter = (req, res) => {
     }
 
     const url = req.url;
-    const ten_dang_nhap = req.session.account 
+    const ten_dang_nhap = req.session.account
         ? `<div class="dropdown">
                 <a href="#" class="dropdown-toggle text-dark text-decoration-none fw-bold" data-bs-toggle="dropdown" aria-expanded="false">${req.session.account.ten_dang_nhap}</a>
                 <ul class="dropdown-menu">
@@ -90,7 +90,16 @@ const pageRouter = (req, res) => {
         return true;
     }
 
+    if (url === '/orders' && req.method === 'GET') {
+        renderPage(res, 'orders.html', { ten_dang_nhap: ten_dang_nhap });
+        return true;
+    }
+    if ((url === '/admin') && req.method === 'GET') {
+        renderPage(res, 'manage.html', { ten_dang_nhap: ten_dang_nhap });
+        return true;
+    }
+
     return false;
 };
 
-module.exports = { renderPage, pageRouter};
+module.exports = { renderPage, pageRouter };

@@ -1,0 +1,74 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f0f4f8;
+}
+
+.sidebar {
+  background-color: #0f172a;
+  min-height: 100vh;
+  color: white;
+}
+
+.sidebar a {
+  color: #cbd5e1;
+  text-decoration: none;
+  padding: 14px 20px;
+  display: block;
+  transition: 0.3s;
+  font-size: 15px;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+  background-color: #1e293b;
+  color: #fff;
+}
+
+/* Các section nội dung ban đầu đều ẩn */
+.content-section {
+  display: none;
+}
+
+/* Section nào có class 'active' thì sẽ hiển thị */
+.content-section.active {
+  display: block;
+}
+
+.navbar {
+  background-color: #1e40af;
+  color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .navbar-brand {
+  color: #fff;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.form-container {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar-header {
+  text-align: center;
+  padding: 20px;
+  font-weight: bold;
+  background-color: #1e293b;
+  border-bottom: 1px solid #334155;
+}
+
+/* Custom styles for tables (if you decide to add tables later) */
+.table th, .table td {
+  vertical-align: middle;
+}
+.table thead th {
+  background-color: #007bff;
+  color: white;
+}
+.table-hover tbody tr:hover {
+  background-color: #e2f0ff;
+}

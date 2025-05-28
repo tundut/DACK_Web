@@ -10,7 +10,7 @@ class SanPham {
         this.hinh_anh = hinh_anh;
         this.id_danh_muc = id_danh_muc;
     }
-
+  
     static async getAll() {
         const { data, error } = await supabase
             .from('sanpham')
@@ -28,6 +28,27 @@ class SanPham {
             ),
             ten_danh_muc: sp.danhmuc ? sp.danhmuc.ten_danh_muc : ''
         }));
+    }
+      
+    static async themSanPham(ten_san_pham, gia, mo_ta, id_danh_muc, so_luong_ton_kho = 0, hinh_anh = '') {
+        const { error } = await supabase.from('sanpham').insert([{
+            ten_san_pham,
+            gia,
+            mo_ta,
+            id_danh_muc,
+            so_luong_ton_kho,
+            hinh_anh
+        }]);
+        if (error) throw new Error(error.message);
+    }
+
+    static async layTatCaSanPham() {
+        const { data, error } = await supabase.from('sanpham').select('*');
+        if (error) {
+            console.error('Lỗi Supabase:', error);
+            return [];
+        }
+        return data || [];
     }
 }
 
