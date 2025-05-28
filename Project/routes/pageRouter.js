@@ -43,7 +43,6 @@ const renderPage = (res, page, extraReplacements = {}) => {
         });
     });
 };
-
 const pageRouter = (req, res) => {
     // Ưu tiên xử lý API sản phẩm trước
     if (productRouter(req, res)) return true;
@@ -65,6 +64,8 @@ const pageRouter = (req, res) => {
         `
         : `<a href="/login" class="ms-2 text-decoration-none text-dark fw-bold">Login</a>`;
 
+        
+
     if ((url === '/home' || url === '/') && req.method === 'GET') {
         renderPage(res, 'index.html', { ten_dang_nhap: ten_dang_nhap });
         return true;
@@ -79,6 +80,11 @@ const pageRouter = (req, res) => {
         renderPage(res, 'register.html', { ten_dang_nhap: ten_dang_nhap });
         return true;
     }
+    if (url === '/cart' && req.method === 'GET') {
+        renderPage(res, 'cart.html', { ten_dang_nhap: ten_dang_nhap });
+        return true;
+    }
+    
 
     if (url === '/product' && req.method === 'GET') {
         renderPage(res, 'product.html', { ten_dang_nhap: ten_dang_nhap });
@@ -100,6 +106,7 @@ const pageRouter = (req, res) => {
     }
 
     return false;
+    
 };
 
 module.exports = { renderPage, pageRouter };

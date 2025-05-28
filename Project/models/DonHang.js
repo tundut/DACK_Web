@@ -7,6 +7,15 @@ class DonHang {
         this.id_thanh_toan = id_thanh_toan;
     }
 
+    static async create({ tong_tien, id_thanh_toan, id_khach_hang }) {
+    return await supabase
+        .from('donhang')
+        .insert({ tong_tien, id_thanh_toan, id_khach_hang })        
+        .select('*')
+        .single();
+}
+
+
     static async layDonHang(id_khach_hang) {
         const { data, error } = await supabase
             .from('donhang')
@@ -42,6 +51,7 @@ class DonHang {
         }
         return data[0];
     }
+
 }
 
 module.exports = DonHang;

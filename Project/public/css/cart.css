@@ -1,0 +1,21 @@
+    .cart-table th, .cart-table td {
+      vertical-align: middle;
+      text-align: center;
+    }
+    .cart-image {
+      width: 100px;
+    }
+    .remove-btn {
+      color: red;
+      cursor: pointer;
+    }
+    .coupon-input {
+      max-width: 400px;
+    }
+    .btn-apply, .btn-checkout {
+      background-color: #00796b;
+      color: #fff;
+    }
+    .btn-apply:hover, .btn-checkout:hover {
+      background-color: #004d40;
+    }

@@ -1,4 +1,5 @@
 const { supabase } = require('../config/supabaseClient');
+
 class ChiTietDonHang {
     constructor(id_don_hang, id_san_pham, so_luong, tong_gia_san_pham) {
         this.id_don_hang = id_don_hang;
@@ -25,6 +26,12 @@ class ChiTietDonHang {
 
         return data;
     }
+    static async create({ id_don_hang, id_san_pham, so_luong, tong_gia_san_pham }) {
+    return await supabase
+        .from('chitietdonhang')
+        .insert({ id_don_hang, id_san_pham, so_luong, tong_gia_san_pham });
+}
+
 }
 
 module.exports = ChiTietDonHang;
