@@ -1,3 +1,4 @@
+const productRouter = require('./productRouter');
 const staticRouter = require('./staticRouter');
 const { pageRouter } = require('./pageRouter');
 const authRouter = require('./authRouter');
