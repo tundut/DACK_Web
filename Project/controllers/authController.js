@@ -7,8 +7,8 @@ async function register(req, res) {
   try {
     const { ho_ten, so_dien_thoai, email, ten_dang_nhap, mat_khau } = req.body;
     const taiKhoan = await TaiKhoan.register(email, ten_dang_nhap, mat_khau);
-    const khachHang = await KhachHang.themKhachHang(ho_ten, so_dien_thoai, VaiTro.KHACH_HANG, taiKhoan.id_tai_khoan); 
-    
+    const khachHang = await KhachHang.themKhachHang(ho_ten, so_dien_thoai, VaiTro.KHACH_HANG, taiKhoan.id_tai_khoan);
+
 
     const payload = JSON.stringify({ message: 'Đăng kí thành công' });
     res.writeHead(201, {
@@ -36,8 +36,12 @@ async function login(req, res) {
     if (account) {
       user = await NguoiDung.layNguoiDung(account.id_tai_khoan);
       req.session.user = user
-      
-      const redirect = JSON.stringify({ redirect: '/home' });
+
+      let redirect = JSON.stringify({ redirect: '/home' });
+      if (user.vai_tro === VaiTro.NHAN_VIEN) {
+        redirect = JSON.stringify({ redirect: '/admin' });
+      }
+
       req.session.account = account
       res.writeHead(200, {
         'Content-Type': 'application/json',
