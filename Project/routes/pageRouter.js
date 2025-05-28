@@ -76,8 +76,10 @@ const pageRouter = (req, res) => {
         renderPage(res, 'orders.html', { ten_dang_nhap: ten_dang_nhap });
         return true;
     }
-
-    return false;
+    if ((url === '/admin' ) && req.method === 'GET') {
+        renderPage(res, 'manage.html',{ten_dang_nhap: ten_dang_nhap});
+        return true;
+    }
 };
 
 module.exports = { renderPage, pageRouter};
