@@ -14,25 +14,33 @@ function addRouter(req, res) {
   if (url === '/product/add-category' && method === 'POST') {
     let body = '';
     req.on('data', chunk => body += chunk);
-    req.on('end', () => {
+    req.on('end', async () => {
       try {
         req.body = JSON.parse(body);
-        productController.themDanhMuc(req, res);
+        const result = await productController.themDanhMuc(req.body);
+        const payload = JSON.stringify(result);
+        res.writeHead(201, { 'Content-Type': 'application/json' });
+        res.end(payload);
       }
-      catch (err) {
+      catch (error) {
+        console.error('Lỗi khi thêm danh mục:', error);
+        const payload = JSON.stringify({ message: 'Lỗi khi thêm danh mục' });
         res.writeHead(400, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ message: 'Lỗi khi thêm danh mục', error: err.message }));
+        res.end(payload);
       }
     });
     return true;
   } 
+  
   if (url === '/product/add-product' && method === 'POST') {
     productController.themSanPham(req, res);
   } 
+
   if (url === '/product/list-products' && method === 'GET') {
     productController.layDanhSachSanPham(req, res);
 
-  } 
+  }
+
   return false;
 }
 

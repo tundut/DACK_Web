@@ -10,8 +10,9 @@ const handleRequest = (req, res) => {
         if (staticRouter(req, res)) return;
         if (pageRouter(req, res)) return;
         if (authRouter(req, res)) return;
-        if (ordersRouter(req, res)) return;
         if (addRouter(req, res)) return;
+        if (ordersRouter(req, res)) return;
+
 
         res.writeHead(404);
         res.end('Không tìm thấy trang!');

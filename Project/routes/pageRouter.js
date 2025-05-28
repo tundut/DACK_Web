@@ -80,6 +80,8 @@ const pageRouter = (req, res) => {
         renderPage(res, 'manage.html',{ten_dang_nhap: ten_dang_nhap});
         return true;
     }
+
+    return false;
 };
 
 module.exports = { renderPage, pageRouter};

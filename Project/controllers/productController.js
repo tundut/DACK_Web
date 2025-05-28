@@ -30,17 +30,10 @@ module.exports = {
   },
 
   // === 2. Thêm danh mục ===
-  async themDanhMuc(req, res) {
-    try {
-      const { ten_danh_muc } = req.body;
-      await DanhMuc.themDanhMuc(ten_danh_muc);
-
-      res.writeHead(201, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ message: 'Thêm danh mục thành công' }));
-    } catch (err) {
-      res.writeHead(400, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ message: 'Lỗi thêm danh mục', error: err.message }));
-    }
+  async themDanhMuc(data) {
+    const { ten_danh_muc } = data;
+    await DanhMuc.themDanhMuc(ten_danh_muc);
+    return { message: 'Thêm danh mục thành công' };
   },
 
   // === 3. Lấy danh sách sản phẩm ===
