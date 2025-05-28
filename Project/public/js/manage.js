@@ -36,14 +36,19 @@ function loadDanhMucs() {
 }
 
 function populateDanhMucSelect() {
-  const select = document.getElementById("id_danh_muc");
-  select.innerHTML = '<option value="">-- Chọn danh mục --</option>';
-  danhMucs.forEach(dm => {
-    const option = document.createElement("option");
-    option.value = dm.id_danh_muc;
-    option.textContent = dm.ten_danh_muc;
-    select.appendChild(option);
-  });
+  fetch('/product/list-categories')
+    .then(res => res.json())
+    .then(data => {
+      const select = document.getElementById("id_danh_muc");
+      select.innerHTML = '<option value="">-- Chọn danh mục --</option>';
+      (data || []).forEach(dm => {
+        const option = document.createElement("option");
+        option.value = dm.id_danh_muc;
+        option.textContent = dm.ten_danh_muc;
+        select.appendChild(option);
+      });
+    })
+    .catch(err => console.error("Lỗi khi tải danh mục:", err));
 }
 
 function renderDanhMucs() {
@@ -85,29 +90,54 @@ function handleAddCategory(e) {
 function handleAddProduct(e) {
   e.preventDefault();
 
-  const product = {
-    ten_san_pham: document.getElementById("ten_san_pham").value.trim(),
-    mo_ta: document.getElementById("mo_ta").value.trim(),
-    gia: parseFloat(document.getElementById("gia").value),
-    so_luong_ton: parseInt(document.getElementById("so_luong_ton").value),
-    hinh_anh: document.getElementById("hinh_anh").value.trim(),
-    id_danh_muc: document.getElementById("id_danh_muc").value
-  };
+  const ten_san_pham = document.getElementById("ten_san_pham").value.trim();
+  const mo_ta = document.getElementById("mo_ta").value.trim();
+  const giaStr = document.getElementById("gia").value.trim();
+  const so_luong_ton_khoStr = document.getElementById("so_luong_ton_kho").value.trim();
+  const hinh_anh = document.getElementById("hinh_anh").value.trim() || "";
+  const id_danh_muc_str = document.getElementById("id_danh_muc").value;
 
-  if (!product.ten_san_pham || !product.mo_ta || isNaN(product.gia) || isNaN(product.so_luong_ton) || !product.id_danh_muc) {
-    return alert("Vui lòng điền đầy đủ và đúng thông tin sản phẩm!");
+  if (!ten_san_pham || !mo_ta || !giaStr || !so_luong_ton_khoStr || !id_danh_muc_str) {
+    alert("Vui lòng điền đầy đủ và đúng thông tin sản phẩm!");
+    return;
   }
+
+  const gia = Number(giaStr);
+  const so_luong_ton_kho = Number(so_luong_ton_khoStr);
+  const id_danh_muc = Number(id_danh_muc_str);
+
+  if (
+    isNaN(gia) || gia < 0 ||
+    isNaN(so_luong_ton_kho) || so_luong_ton_kho < 0 ||
+    isNaN(id_danh_muc) || id_danh_muc <= 0
+  ) {
+    alert("Giá, số lượng tồn và danh mục phải là số hợp lệ và lớn hơn 0!");
+    return;
+  }
+
+  const product = {
+    ten_san_pham,
+    mo_ta,
+    gia,
+    so_luong_ton_kho,
+    hinh_anh,
+    id_danh_muc
+  };
 
   fetch('/product/add-product', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(product)
   })
-    .then(res => res.json())
-    .then(data => {
-      alert(data.message || "Thêm sản phẩm thành công!");
-      e.target.reset();
-      renderSanPhams();
+    .then(async res => {
+      const data = await res.json();
+      if (!res.ok) {
+        alert((data && data.message ? data.message : "Thêm sản phẩm thất bại!") + (data && data.error ? "\n" + data.error : ""));
+      } else {
+        alert(data.message || "Thêm sản phẩm thành công!");
+        e.target.reset();
+        renderSanPhams();
+      }
     })
     .catch(err => {
       console.error(err);
@@ -130,7 +160,7 @@ function renderSanPhams() {
           <td>${sp.ten_san_pham}</td>
           <td>${sp.mo_ta}</td>
           <td>${sp.gia}</td>
-          <td>${sp.so_luong_ton}</td>
+          <td>${sp.so_luong_ton_kho}</td>
           <td><img src="${sp.hinh_anh}" alt="Hình ảnh" style="max-height: 50px"/></td>
           <td>${sp.id_danh_muc}</td>
           <td><button class="btn btn-sm btn-info">Sửa</button></td>
@@ -140,10 +170,5 @@ function renderSanPhams() {
     .catch(err => {
       console.error("Lỗi khi tải sản phẩm:", err);
     });
-
-
-    window.logout = function() {
-        window.location.href = '/logout';
-    };
 }
 
