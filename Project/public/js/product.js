@@ -88,27 +88,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Gắn sự kiện tìm kiếm xổ ra đúng style
   const searchBox = document.getElementById('search-box');
-  const searchToggle = document.getElementById('search-toggle');
   const searchForm = document.getElementById('search-form');
   const searchInput = document.getElementById('search-input');
-  if (searchToggle && searchForm && searchInput) {
-    searchToggle.addEventListener('click', function(e) {
+  if (searchForm && searchInput) {
+    searchForm.addEventListener('click', function(e) {
       e.stopPropagation();
-      searchForm.classList.toggle('show');
-      if (searchForm.classList.contains('show')) {
+      if (!searchForm.classList.contains('show')) {
+        searchForm.classList.add('show');
         searchInput.focus();
       }
     });
     // Ẩn form khi click ra ngoài
     document.addEventListener('click', function(e) {
-      if (!searchBox.contains(e.target) && searchForm.classList.contains('show')) {
-        searchForm.classList.remove('show');
+      if (!searchInput.contains(e.target) && searchForm.classList.contains('show')) {
+        if (searchInput.value.trim() === '') 
+        {
+          searchForm.classList.remove('show');
+        }
       }
     });
     // Ẩn form khi submit
     searchForm.addEventListener('submit', function(e) {
       e.preventDefault();
-      searchForm.classList.remove('show');
       const keyword = searchInput.value.trim().toLowerCase();
       if (!keyword) {
         productApp.loadAllProducts();

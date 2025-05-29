@@ -1,49 +1,49 @@
-    .cart-table th, .cart-table td {
-      vertical-align: middle;
-      text-align: center;
-    }
-    .cart-image {
-      width: 100px;
-    }
-    .remove-btn {
-      color: red;
-      cursor: pointer;
-    }
-    .coupon-input {
-      max-width: 400px;
-    }
-    .btn-apply, .btn-checkout {
-      background-color: #00796b;
-      color: #fff;
-    }
-    .btn-apply:hover, .btn-checkout:hover {
-      background-color: #004d40;
-    }
-    .cart-table {
-      background: white;
-      border-radius: 10px;
-      overflow: hidden;
-      border-collapse: collapse;
-      table-layout: fixed;
-      width: 100%;
-    }
-    .cart-table thead th {
-      background: #2c3e50;
-      color: white;
-      font-weight: 500;
-      border: none;
-      padding: 1rem;
-    }
-    .cart-table tbody td {
-      padding: 1rem;
-      vertical-align: middle;
-    }
-    .page-title {
-      color: #2c3e50;
-      font-weight: 600;
-      margin-bottom: 2rem;
-      position: relative;
-      padding-bottom: 0.5rem;
-      text-align: center;
-      padding-top: 2rem;
-    }
+.cart-table th, .cart-table td {
+  vertical-align: middle;
+  text-align: center;
+}
+.cart-image {
+  width: 100px;
+}
+.remove-btn {
+  color: red;
+  cursor: pointer;
+}
+.coupon-input {
+  max-width: 400px;
+}
+.btn-apply, .btn-checkout {
+  background-color: #00796b;
+  color: #fff;
+}
+.btn-apply:hover, .btn-checkout:hover {
+  background-color: #004d40;
+}
+.cart-table {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
+}
+.cart-table thead th {
+  background: #2c3e50;
+  color: white;
+  font-weight: 500;
+  border: none;
+  padding: 1rem;
+}
+.cart-table tbody td {
+  padding: 1rem;
+  vertical-align: middle;
+}
+.page-title {
+  color: #2c3e50;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+  text-align: center;
+  padding-top: 2rem;
+}

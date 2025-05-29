@@ -1,15 +1,3 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  line-height: 1.6;
-  color: #1d1d1f;
-}
-
 /* Header Styles */
 .apple-header {
   background: rgba(0, 0, 0, 0.8);
@@ -261,60 +249,7 @@ body {
 }
 
 /* Feature Section */
-.feature-section {
-  padding: 100px 0;
-  background: #000;
-  color: white;
-  text-align: center;
-}
 
-.feature-title {
-  font-size: 3rem;
-  font-weight: 600;
-  margin-bottom: 30px;
-  background: linear-gradient(45deg, #667eea, #764ba2);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.feature-description {
-  font-size: 1.2rem;
-  max-width: 600px;
-  margin: 0 auto 50px;
-  opacity: 0.8;
-}
-
-.feature-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 50px;
-  margin-top: 80px;
-}
-
-.feature-item {
-  text-align: center;
-}
-
-.feature-icon {
-  font-size: 3rem;
-  margin-bottom: 20px;
-  background: linear-gradient(45deg, #667eea, #764ba2);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.feature-item h3 {
-  font-size: 1.5rem;
-  margin-bottom: 15px;
-  font-weight: 600;
-}
-
-.feature-item p {
-  opacity: 0.8;
-  line-height: 1.6;
-}
 
 /* Footer */
 .apple-footer {
@@ -426,11 +361,11 @@ body {
 #search-form {
   position: absolute;
   right: 0;
-  top: 0;
+  top: -70px;
   display: flex;
   align-items: center;
-  width: 0;
-  opacity: 0;
+  width: 200px;
+  opacity: 1;
   pointer-events: none;
   overflow: hidden;
   background: #fff;
@@ -440,6 +375,7 @@ body {
   transition: width 0.3s, opacity 0.3s;
   border: none;
   z-index: 10;
+  pointer-events: auto;
 }
 #search-form.show {
   width: 420px;
@@ -500,32 +436,4 @@ body {
     height: 40px;
     font-size: 1rem;
   }
-}
-
-.search-toggle-btn {
-  border-radius: 50% !important;
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.25rem;
-  z-index: 2;
-  background: #6c7a89;
-  color: #fff;
-  box-shadow: 0 2px 8px 0 rgba(60,60,60,0.10);
-  border: none;
-  transition: box-shadow 0.2s, background 0.2s, color 0.2s;
-  margin-right: 0;
-}
-.search-toggle-btn:hover, .search-toggle-btn:focus {
-  background: #495464;
-  color: #fff;
-  box-shadow: 0 4px 16px rgba(60,120,255,0.15);
-}
-.search-toggle-btn i {
-  font-size: 1.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }

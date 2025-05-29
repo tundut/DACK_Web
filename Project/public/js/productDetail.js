@@ -104,7 +104,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 const data = await res.json();
                 if (data.success) {
                     alert('Đã thêm vào giỏ hàng!');
-                } else {
+                } 
+                else if (data.message === "Chưa đăng nhập") {
+                    alert("Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.");
+                }
+                else {
                     alert(data.message || 'Lỗi khi thêm vào giỏ hàng');
                 }
             } catch (err) {

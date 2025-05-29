@@ -22,6 +22,21 @@ async function productRouter(req, res) {
         return true;
     }
 
+    if (req.method === 'GET' && req.url === '/api/products/featured') {
+        try {
+            const featuredProducts = await productController.getAllProducts();
+            const payload = JSON.stringify(featuredProducts);
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(payload);
+        } catch (err) {
+            console.error('Lỗi khi lấy sản phẩm nổi bật:', err);
+            const payload = JSON.stringify({ message: 'Lỗi khi lấy sản phẩm nổi bật' });
+            res.writeHead(500, { 'Content-Type': 'application/json' });
+            res.end(payload);
+        }
+        return true;
+    }
+
     if (req.method === 'GET' && req.url.startsWith('/api/products/')) {
         const id = req.url.split('/').pop();
         try {

@@ -73,6 +73,8 @@ const pageRouter = (req, res) => {
     if (url === '/cart' && req.method === 'GET') {
         // Nếu là nhân viên thì không làm gì (không render, không alert, không chuyển trang)
         if (req.session.user && req.session.user.vai_tro === VaiTro.NHAN_VIEN) {
+            res.writeHead(200, { 'Content-Type': 'text/html; charset=UTF-8' });
+            res.end(`<script>alert('Nhân viên không có quyền truy cập giỏ hàng!');window.location.href='/home';</script>`);
             return true;
         }
         renderPage(res, 'cart.html', { ten_dang_nhap: ten_dang_nhap });
@@ -92,6 +94,8 @@ const pageRouter = (req, res) => {
     if (url === '/orders' && req.method === 'GET') {
         // Nếu là nhân viên thì không làm gì (không render, không alert, không chuyển trang)
         if (req.session.user && req.session.user.vai_tro === VaiTro.NHAN_VIEN) {
+            res.writeHead(200, { 'Content-Type': 'text/html; charset=UTF-8' });
+            res.end(`<script>alert('Nhân viên không có quyền truy cập đơn hàng!');window.location.href='/home';</script>`);
             return true;
         }
         renderPage(res, 'orders.html', { ten_dang_nhap: ten_dang_nhap });

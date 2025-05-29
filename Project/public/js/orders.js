@@ -4,6 +4,12 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch('/api/orders')
         .then(res => res.json())
         .then(data => {
+            if (data.message === "Chưa đăng nhập") {
+                alert("Vui lòng đăng nhập để xem đơn hàng.");
+                window.location.href = '/login';
+                return;
+            }
+            
             const orders = data.orders;
             orders.forEach(order => {
                 const row = document.createElement("tr");

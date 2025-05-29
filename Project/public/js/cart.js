@@ -6,6 +6,12 @@ async function renderCart() {
   try {
     const res = await fetch('/api/cart');
     const items = await res.json();
+    if (items.message === 'Chưa đăng nhập') {
+      alert('Vui lòng đăng nhập để xem giỏ hàng.');
+      window.location.href = '/login';
+      return;
+    }
+
     if (!Array.isArray(items) || items.length === 0) {
       tbody.innerHTML = '<tr><td colspan="6">Giỏ hàng trống</td></tr>';
       document.querySelectorAll('.cart-totals-value').forEach(el => el.textContent = '$0.00');
