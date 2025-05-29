@@ -1,7 +1,7 @@
 // === addRouter.js ===
 const productController = require('../controllers/manageController');
 
-async function addRouter(req, res) {
+async function manageRouter(req, res) {
   const url = req.url;
   const method = req.method;
 
@@ -39,4 +39,4 @@ async function addRouter(req, res) {
   return false;
 }
 
-module.exports = addRouter;
+module.exports = manageRouter;
