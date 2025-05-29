@@ -37,6 +37,19 @@ class ChiTietGioHang {
         .eq('id_gio_hang', id_gio_hang)
         .eq('id_san_pham', id_san_pham);
 }
+static async addItem(id_gio_hang, id_san_pham, so_luong, tong_gia_san_pham) {
+    return await supabase
+        .from('chitietgiohang')
+        .insert({ id_gio_hang, id_san_pham, so_luong, tong_gia_san_pham });
+}
+
+static async updateQuantity(id_gio_hang, id_san_pham, so_luong) {
+    return await supabase
+        .from('chitietgiohang')
+        .update({ so_luong })
+        .eq('id_gio_hang', id_gio_hang)
+        .eq('id_san_pham', id_san_pham);
+}
     
 }
 

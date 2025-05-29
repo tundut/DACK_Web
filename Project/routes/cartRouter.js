@@ -61,6 +61,52 @@ async function cartRouter(req, res) {
         });
         return true;
     }
+    if (req.method === 'POST' && req.url === '/api/cart/add') {
+        if (!req.session.user) {
+            res.writeHead(401, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ success: false, message: 'Chưa đăng nhập' }));
+            return true;
+        }
+        let body = '';
+        req.on('data', chunk => { body += chunk; });
+        req.on('end', async () => {
+            try {
+                const { id_san_pham, so_luong } = JSON.parse(body);
+                // Lấy id_tai_khoan từ session
+                const id_tai_khoan = req.session.user.id_tai_khoan;
+                await cartController.addToCart(id_tai_khoan, id_san_pham, so_luong || 1);
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true }));
+            } catch (err) {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: false, message: err.message }));
+            }
+        });
+        return true;
+    }
+
+    if (req.url === '/api/cart/update' && req.method === 'POST') {
+        if (!req.session.user) {
+            res.writeHead(401, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ success: false, message: 'Chưa đăng nhập' }));
+            return true;
+        }
+        let body = '';
+        req.on('data', chunk => body += chunk);
+        req.on('end', async () => {
+            try {
+                const { id_san_pham, so_luong } = JSON.parse(body);
+                const id_tai_khoan = req.session.user.id_tai_khoan;
+                await cartController.updateQuantity(id_tai_khoan, id_san_pham, so_luong);
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true }));
+            } catch (e) {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: false, message: e.message }));
+            }
+        });
+        return true;
+    }
 
     return false;
 }

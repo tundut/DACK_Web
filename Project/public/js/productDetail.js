@@ -86,3 +86,30 @@ document.addEventListener('DOMContentLoaded', async () => {
     setMainImage(product.mainImage);
   }
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const btnAddToCart = document.querySelector('.btn-primary.btn-lg');
+    if (btnAddToCart) {
+        btnAddToCart.addEventListener('click', async function() {
+            // Lấy id sản phẩm từ URL
+            const match = window.location.pathname.match(/\/product\/(\d+)/);
+            const id_san_pham = match ? match[1] : null;
+            if (!id_san_pham) return alert('Không xác định được sản phẩm');
+            try {
+                const res = await fetch('/api/cart/add', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id_san_pham, so_luong: 1 })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    alert('Đã thêm vào giỏ hàng!');
+                } else {
+                    alert(data.message || 'Lỗi khi thêm vào giỏ hàng');
+                }
+            } catch (err) {
+                alert('Lỗi kết nối máy chủ');
+            }
+        });
+    }
+});
