@@ -7,6 +7,7 @@ async function getAllProducts() {
     return (data || []).map((sp) => ({
         id: sp.id_san_pham,
         title: sp.ten_san_pham,
+        ten_san_pham: sp.ten_san_pham,
         description: sp.mo_ta,
         price: sp.gia,
         stock: sp.so_luong_ton_kho,

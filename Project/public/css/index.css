@@ -77,3 +77,34 @@
 .carousel-control-next-icon {
     transform: rotate(180deg); /* Quay ngược lại mũi tên trái để thành mũi tên phải */
 }
+
+
+#hero-section {
+    background: url('https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=1200&q=80') center center/cover no-repeat;
+    min-height: 340px;
+  
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #hero-section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, rgba(60,60,60,0.25) 0%, rgba(60,60,60,0.35) 100%);
+    z-index: 1;
+  }
+  #hero-section .container {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+  #hero-section .hero-title {
+    color: #fff;
+    font-size: 3.5rem;
+    font-weight: 700;
+    text-shadow: 0 4px 24px rgba(0,0,0,0.25);
+    margin-bottom: 32px;
+  }

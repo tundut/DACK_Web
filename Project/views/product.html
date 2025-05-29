@@ -4,11 +4,10 @@
 <link rel="stylesheet" href="/public/css/product.css">
 <body>
     <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="container">
-            <h1 class="hero-title">Mac Store</h1>
-            <p class="hero-subtitle">Khám phá bộ sưu tập Mac mới nhất</p>
-            <div class="hero-buttons">
+    <section class="hero-section" id="hero-section" style="position: relative; min-height: 340px; display: flex; align-items: center; justify-content: center;">
+        <div class="container" style="text-align: center; position: relative; z-index:2;">
+            <h1 class="hero-title" style="color: #fff; font-size: 3.5rem; font-weight: 700; text-shadow: 0 4px 24px rgba(0,0,0,0.25);">Mac Store</h1>
+            <div class="hero-buttons" style="margin-top: 32px;">
                 <a href="#products" class="btn-apple">Xem sản phẩm</a>
                 <a href="#features" class="btn-apple-outline">Tìm hiểu thêm</a>
             </div>
@@ -27,6 +26,15 @@
         <!-- Product Grid -->
         <section class="product-grid" id="products" style="flex: 1;">
             <div class="container">
+                <div class="d-flex justify-content-end align-items-center mb-4 position-relative" style="z-index: 20;">
+                    <div id="search-box" class="search-box">
+                        <button id="search-toggle" type="button" class="btn search-toggle-btn">GO</button>
+                        <form id="search-form" class="search-form-collapsed">
+                            <input class="form-control" type="search" placeholder="Search..." aria-label="Search" id="search-input">
+                            <button class="btn" type="submit">GO</button>
+                        </form>
+                    </div>
+                </div>
                 <div id="loading-state" class="loading">
                     <div class="spinner"></div>
                     <p>Đang tải sản phẩm...</p>
@@ -78,8 +86,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../public/js/product.js"></script>
-    <script>
     
-    </script>
 </body>
 </html>
