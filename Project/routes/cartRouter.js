@@ -1,4 +1,5 @@
 const cartController = require('../controllers/cartController');
+const { VaiTro } = require('../utils/constants');
 
 async function cartRouter(req, res) {
     if (req.url === '/api/cart' && req.method === 'GET') {
@@ -65,6 +66,12 @@ async function cartRouter(req, res) {
         if (!req.session.user) {
             res.writeHead(401, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ success: false, message: 'Chưa đăng nhập' }));
+            return true;
+        }
+        // Chặn nhân viên thêm hàng vào giỏ
+        if (req.session.user.vai_tro === VaiTro.NHAN_VIEN) {
+            res.writeHead(403, { 'Content-Type': 'application/json; charset=UTF-8' });
+            res.end(JSON.stringify({ success: false, message: 'Nhân viên không có quyền thêm hàng vào giỏ!' }));
             return true;
         }
         let body = '';
