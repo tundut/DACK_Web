@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const row = document.createElement("tr");
                 row.innerHTML = `
                     <td><span class="badge bg-primary">#${order.id_don_hang}</span></td>
-                    <td><span class="amount">${order.tong_tien.toLocaleString()}đ</span></td>
+                    <td><span class="amount">${order.tong_tien.toLocaleString("vi-VN") + '₫'}</span></td>
                     <td><span class="date">${order.ngay_tao}</span></td>
                     <td>
                         <button class="btn btn-details btn-primary show-details-btn" data-id="${order.id}">
@@ -60,15 +60,15 @@ document.addEventListener('DOMContentLoaded', () => {
                                             <td>
                                                 <span class="quantity-badge">${item.so_luong}</span>
                                             </td>
-                                            <td>${(item.tong_gia_san_pham / item.so_luong).toLocaleString()}đ</td>
-                                            <td class="amount">${item.tong_gia_san_pham.toLocaleString()}đ</td>
+                                            <td>${(item.tong_gia_san_pham / item.so_luong).toLocaleString('vi-VN') + '₫'}</td>
+                                            <td class="amount">${item.tong_gia_san_pham.toLocaleString('vi-VN') + '₫'}</td>
                                         </tr>
                                     `).join('')}
                                 </tbody>
                                 <tfoot>
                                     <tr>
                                         <td colspan="4" class="text-end"><strong>Tổng cộng:</strong></td>
-                                        <td class="amount">${order.tong_tien.toLocaleString()}đ</td>
+                                        <td class="amount">${order.tong_tien.toLocaleString("vi-VN") + '₫'}</td>
                                     </tr>
                                 </tfoot>
                             </table>

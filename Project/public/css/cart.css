@@ -37,6 +37,9 @@
 .cart-table tbody td {
   padding: 1rem;
   vertical-align: middle;
+  font-weight: 500;
+  color: #2c3e50;
+  margin-bottom: 0.25rem;
 }
 .page-title {
   color: #2c3e50;

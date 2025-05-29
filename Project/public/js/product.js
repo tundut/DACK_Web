@@ -46,7 +46,7 @@ const productApp = {
               <div class="product-content">
                 <div class="product-title">${p.title}</div>
                 <!--<div class="product-description">${p.description}</div>-->
-                <div class="product-price">${p.price}$</div>
+                <div class="product-price">${p.price.toLocaleString('vi-VN') + '₫'}</div>
                 <div class="product-stock ${p.stock === 0 ? 'out-of-stock' : ''}">
                   ${p.stock === 0 ? 'Hết hàng' : 'Còn hàng'}
                 </div>
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
                   </div>
                   <div class="product-content">
                     <div class="product-title">${p.title}</div>
-                    <div class="product-price">${p.price}$</div>
+                    <div class="product-price">${p.price.toLocaleString('vi-VN') + '₫'}</div>
                     <div class="product-stock ${p.stock === 0 ? 'out-of-stock' : ''}">
                       ${p.stock === 0 ? 'Hết hàng' : 'Còn hàng'}
                     </div>

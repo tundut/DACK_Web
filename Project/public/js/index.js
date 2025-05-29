@@ -60,7 +60,7 @@ function renderFeatureProducts(products) {
                     <img src="${product.image}" class="card-img-top" alt="${product.ten_san_pham}">
                     <div class="card-body">
                         <h5 class="card-title fw-bold">${product.ten_san_pham}</h5>
-                        <p class="card-text">$${product.price}</p>
+                        <p class="card-text">${product.price.toLocaleString("vi-VN") + '₫'}</p>
                     </div>
                 </div>
             </div>
@@ -80,7 +80,7 @@ function renderAccessoryProducts(products) {
                     <img src="${product.image}" class="card-img-top" alt="${product.ten_san_pham}">
                     <div class="card-body">
                         <h5 class="card-title fw-bold">${product.ten_san_pham}</h5>
-                        <p class="card-text">$${product.price}</p>
+                        <p class="card-text">${product.price.toLocaleString("vi-VN") + '₫'}</p>
                     </div>
                 </div>
             </div>

@@ -14,7 +14,7 @@ async function renderCart() {
 
     if (!Array.isArray(items) || items.length === 0) {
       tbody.innerHTML = '<tr><td colspan="6">Giỏ hàng trống</td></tr>';
-      document.querySelectorAll('.cart-totals-value').forEach(el => el.textContent = '$0.00');
+      document.querySelectorAll('.cart-totals-value').forEach(el => el.textContent = '0.00₫');
       return;
     }
     tbody.innerHTML = '';
@@ -29,15 +29,15 @@ async function renderCart() {
           <td data-label="Xóa"><span class="remove-btn" data-id="${item.id_san_pham}">&times;</span></td>
           <td data-label="Hình ảnh"><img src="${sp.hinh_anh || '#'}" alt="${sp.ten_san_pham || ''}" class="img-fluid cart-image"></td>
           <td data-label="Tên sản phẩm">${sp.ten_san_pham || ''}</td>
-          <td data-label="Đơn giá">$${price.toFixed(2)}</td>
+          <td data-label="Đơn giá">${price.toLocaleString('vi-VN') + '₫'}</td>
           <td data-label="Số lượng">
           <input type="number" min="1" value="${item.so_luong}" class="form-control text-center quantity-input" style="width: 70px; margin: auto;" data-id="${item.id_san_pham}">
           </td>
-          <td data-label="Tổng">$${subtotal.toFixed(2)}</td>
+          <td data-label="Tổng" class="fw-bold">${subtotal.toLocaleString('vi-VN') + '₫'}</td>
         </tr>
       `;
     });
-    document.querySelectorAll('.cart-totals-value').forEach(el => el.textContent = `$${total.toFixed(2)}`);
+    document.querySelectorAll('.cart-totals-value').forEach(el => el.textContent = `${total.toLocaleString('vi-VN') + '₫'}`);
 
     // Gắn lại sự kiện xóa sau khi render
     tbody.querySelectorAll('.remove-btn').forEach(btn => {
