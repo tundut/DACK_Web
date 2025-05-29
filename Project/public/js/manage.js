@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  //loadDanhMucs();
+  loadDanhMucs();
 
   document.getElementById("formDanhMuc").addEventListener("submit", handleAddCategory);
   document.getElementById("formSanPham").addEventListener("submit", handleAddProduct);
@@ -17,7 +17,7 @@ function showSection(id) {
     renderDanhMucs();
   } else if (id === 'sanPhamSection') {
     populateDanhMucSelect();
-    renderSanPhams();
+
   }
 }
 
@@ -25,7 +25,7 @@ let danhMucs = [];
 let sanPhams = [];
 
 function loadDanhMucs() {
-  fetch('/product/list-categories')
+  fetch('/manage/list-categories')
     .then(res => res.json())
     .then(data => {
       danhMucs = data;
@@ -36,21 +36,15 @@ function loadDanhMucs() {
 }
 
 function populateDanhMucSelect() {
-  fetch('/product/list-categories')
-    .then(res => res.json())
-    .then(data => {
-      const select = document.getElementById("id_danh_muc");
-      select.innerHTML = '<option value="">-- Chọn danh mục --</option>';
-      (data || []).forEach(dm => {
-        const option = document.createElement("option");
-        option.value = dm.id_danh_muc;
-        option.textContent = dm.ten_danh_muc;
-        select.appendChild(option);
-      });
-    })
-    .catch(err => console.error("Lỗi khi tải danh mục:", err));
+  const select = document.getElementById("id_danh_muc");
+  select.innerHTML = '<option value="">-- Chọn danh mục --</option>';
+  (danhMucs || []).forEach(dm => {
+    const option = document.createElement("option");
+    option.value = dm.id_danh_muc;
+    option.textContent = dm.ten_danh_muc;
+    select.appendChild(option);
+  });
 }
-
 function renderDanhMucs() {
   const tableBody = document.getElementById('danhMucTableBody');
   if (!tableBody) return;
@@ -70,7 +64,7 @@ function handleAddCategory(e) {
   const tenDanhMuc = document.getElementById("ten_danh_muc").value.trim();
   if (!tenDanhMuc) return alert("Vui lòng nhập tên danh mục!");
 
-  fetch('/product/add-category', {
+  fetch('/manage/add-category', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ ten_danh_muc: tenDanhMuc })
@@ -79,7 +73,7 @@ function handleAddCategory(e) {
     .then(data => {
       alert(data.message || "Thêm danh mục thành công!");
       e.target.reset();
-      //loadDanhMucs();
+      loadDanhMucs();
     })
     .catch(err => {
       console.error(err);
@@ -124,7 +118,7 @@ function handleAddProduct(e) {
     id_danh_muc
   };
 
-  fetch('/product/add-product', {
+  fetch('/manage/add-product', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(product)
@@ -136,7 +130,6 @@ function handleAddProduct(e) {
       } else {
         alert(data.message || "Thêm sản phẩm thành công!");
         e.target.reset();
-        renderSanPhams();
       }
     })
     .catch(err => {
@@ -144,31 +137,3 @@ function handleAddProduct(e) {
       alert("Thêm sản phẩm thất bại!");
     });
 }
-
-function renderSanPhams() {
-  fetch('/product/list-products')
-    .then(res => res.json())
-    .then(sanPhams => {
-      const tableBody = document.getElementById('sanPhamTableBody');
-      if (!tableBody) return;
-
-      tableBody.innerHTML = '';
-      sanPhams.forEach(sp => {
-        const row = tableBody.insertRow();
-        row.innerHTML = `
-          <td>${sp.id_san_pham}</td>
-          <td>${sp.ten_san_pham}</td>
-          <td>${sp.mo_ta}</td>
-          <td>${sp.gia}</td>
-          <td>${sp.so_luong_ton_kho}</td>
-          <td><img src="${sp.hinh_anh}" alt="Hình ảnh" style="max-height: 50px"/></td>
-          <td>${sp.id_danh_muc}</td>
-          <td><button class="btn btn-sm btn-info">Sửa</button></td>
-        `;
-      });
-    })
-    .catch(err => {
-      console.error("Lỗi khi tải sản phẩm:", err);
-    });
-}
-
