@@ -61,4 +61,33 @@ async function removeFromCart(id_tai_khoan, id_san_pham) {
     return { success: true };
 }
 
-module.exports = { getCart, checkout, removeFromCart };
+async function addToCart(id_tai_khoan, id_san_pham, so_luong = 1) {
+    const id_khach_hang = await GioHang.layIdKhachHangTheoTaiKhoan(id_tai_khoan);
+    const id_gio_hang = await GioHang.layIdGioHangTheoKhachHang(id_khach_hang);
+    const sp = await ChiTietGioHang.layChiTietSanPham(id_san_pham);
+    if (!sp) throw new Error('Không tìm thấy sản phẩm');
+    // Kiểm tra đã có sản phẩm trong giỏ chưa
+    const items = await ChiTietGioHang.layChiTietGioHang(id_gio_hang);
+    const existed = items.find(i => i.id_san_pham == id_san_pham);
+    if (existed) {
+        // Nếu đã có thì tăng số lượng
+        await ChiTietGioHang.updateQuantity(id_gio_hang, id_san_pham, existed.so_luong + so_luong);
+    } else {
+        // Nếu chưa có thì thêm mới
+        await ChiTietGioHang.addItem(id_gio_hang, id_san_pham, so_luong, sp.gia * so_luong);
+    }
+    return { success: true };
+}
+
+async function updateQuantity(id_tai_khoan, id_san_pham, so_luong) {
+    const id_khach_hang = await GioHang.layIdKhachHangTheoTaiKhoan(id_tai_khoan);
+    const id_gio_hang = await GioHang.layIdGioHangTheoKhachHang(id_khach_hang);
+    if (so_luong <= 0) {
+        await ChiTietGioHang.removeItem(id_gio_hang, id_san_pham);
+    } else {
+        await ChiTietGioHang.updateQuantity(id_gio_hang, id_san_pham, so_luong);
+    }
+    return { success: true };
+}
+
+module.exports = { getCart, checkout, removeFromCart, addToCart, updateQuantity };

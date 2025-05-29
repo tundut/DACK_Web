@@ -25,7 +25,8 @@ async function renderCart() {
           <td>${sp.ten_san_pham || ''}</td>
           <td>$${price.toFixed(2)}</td>
           <td>
-          <input type="number" value="${item.so_luong}" class="form-control text-center" style="width: 70px; margin: auto;" disabled readonly>          </td>
+          <input type="number" min="1" value="${item.so_luong}" class="form-control text-center quantity-input" style="width: 70px; margin: auto;" data-id="${item.id_san_pham}">
+          </td>
           <td>$${subtotal.toFixed(2)}</td>
         </tr>
       `;
@@ -48,6 +49,29 @@ async function renderCart() {
           renderCart(); // Gọi lại renderCart thay vì reload trang
         } else {
           alert(data.message || 'Xóa không thành công!');
+        }
+      });
+    });
+
+    // Gắn sự kiện thay đổi số lượng
+    tbody.querySelectorAll('.quantity-input').forEach(input => {
+      input.addEventListener('change', async function() {
+        let so_luong = parseInt(this.value);
+        if (isNaN(so_luong) || so_luong < 1) {
+          so_luong = 1;
+          this.value = 1;
+        }
+        const id_san_pham = this.getAttribute('data-id');
+        const res = await fetch('/api/cart/update', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id_san_pham, so_luong })
+        });
+        const data = await res.json();
+        if (data.success) {
+          renderCart();
+        } else {
+          alert(data.message || 'Cập nhật số lượng thất bại!');
         }
       });
     });
