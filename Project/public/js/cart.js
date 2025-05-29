@@ -26,14 +26,14 @@ async function renderCart() {
       total += subtotal;
       tbody.innerHTML += `
         <tr>
-          <td><span class="remove-btn" data-id="${item.id_san_pham}">&times;</span></td>
-          <td><img src="${sp.hinh_anh || '#'}" alt="${sp.ten_san_pham || ''}" class="img-fluid cart-image"></td>
-          <td>${sp.ten_san_pham || ''}</td>
-          <td>$${price.toFixed(2)}</td>
-          <td>
+          <td data-label="Xóa"><span class="remove-btn" data-id="${item.id_san_pham}">&times;</span></td>
+          <td data-label="Hình ảnh"><img src="${sp.hinh_anh || '#'}" alt="${sp.ten_san_pham || ''}" class="img-fluid cart-image"></td>
+          <td data-label="Tên sản phẩm">${sp.ten_san_pham || ''}</td>
+          <td data-label="Đơn giá">$${price.toFixed(2)}</td>
+          <td data-label="Số lượng">
           <input type="number" min="1" value="${item.so_luong}" class="form-control text-center quantity-input" style="width: 70px; margin: auto;" data-id="${item.id_san_pham}">
           </td>
-          <td>$${subtotal.toFixed(2)}</td>
+          <td data-label="Tổng">$${subtotal.toFixed(2)}</td>
         </tr>
       `;
     });
