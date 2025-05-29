@@ -7,7 +7,7 @@ const bgUrl = heroBackgrounds[Math.floor(Math.random() * heroBackgrounds.length)
 document.getElementById('hero-section').style.backgroundImage = `url('${bgUrl}')`; 
 
 const featureSwiper = new Swiper('.feature-swiper', {
-    loop: true,
+    loop: false,
     spaceBetween: 30,
     slidesPerView: 3,
     slidesPerGroup: 1,
@@ -22,7 +22,7 @@ const featureSwiper = new Swiper('.feature-swiper', {
 });
 
 const accessoriesSwiper = new Swiper('.accessories-swiper', {
-    loop: true,
+    loop: false,
     spaceBetween: 30,
     slidesPerView: 3,
     slidesPerGroup: 1,
@@ -45,6 +45,8 @@ function getFeatureProduct(){
         renderFeatureProducts(featured);
         const accessories = data.filter(item => [6, 7, 8, 9, 10].includes(item.id));
         renderAccessoryProducts(accessories);
+        console.log('Featured Products:', featured);
+        console.log('Accessories:', accessories);
     });
 }
 
@@ -85,7 +87,7 @@ function renderAccessoryProducts(products) {
         `;
         container.innerHTML += productHTML;
     });
-    featureSwiper.update();
+    accessoriesSwiper.update();
 }
 
 addEventListener('DOMContentLoaded', () => {
