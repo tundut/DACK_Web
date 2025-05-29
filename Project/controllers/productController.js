@@ -1,4 +1,5 @@
 const SanPham = require('../models/SanPham');
+const DanhMuc = require('../models/DanhMuc');
 
 async function getAllProducts() {
     const data = await SanPham.layTatCaSanPham();
@@ -31,4 +32,9 @@ async function getProductById(id) {
     };
 }
 
-module.exports = { getAllProducts, getProductById };
+async function getAllDanhMuc() {
+  data = await DanhMuc.layTatCaDanhMuc();
+  return data || [];
+}
+
+module.exports = { getAllProducts, getProductById, getAllDanhMuc };

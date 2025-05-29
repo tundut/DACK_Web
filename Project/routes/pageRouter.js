@@ -1,7 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-const productRouter = require('./productRouter');
-const danhMucController = require('../controllers/danhMucController');
 
 const renderPage = (res, page, extraReplacements = {}) => {
     const headerPath = path.join(__dirname, '..', 'views', 'header.html');

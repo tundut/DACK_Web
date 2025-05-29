@@ -1,5 +1,4 @@
 const productController = require('../controllers/productController');
-const danhMucController = require('../controllers/danhMucController');
 
 async function productRouter(req, res) {
     if (req.method === 'GET' && req.url === '/api/products') {
@@ -41,7 +40,7 @@ async function productRouter(req, res) {
 
     if (req.url === '/api/danhmuc' && req.method === 'GET') {
         try {
-        const danhMucList = await danhMucController.getAllDanhMuc();
+        const danhMucList = await productController.getAllDanhMuc();
         const payload = JSON.stringify(danhMucList);
         res.writeHead(200, {
             'Content-Type': 'application/json',

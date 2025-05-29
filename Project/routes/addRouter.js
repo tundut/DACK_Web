@@ -36,11 +36,6 @@ async function addRouter(req, res) {
     productController.themSanPham(req, res);
   } 
 
-  if (url === '/product/list-products' && method === 'GET') {
-    productController.layDanhSachSanPham(req, res);
-
-  }
-
   return false;
 }
 
