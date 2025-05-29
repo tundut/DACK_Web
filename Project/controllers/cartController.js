@@ -3,9 +3,11 @@ const ChiTietGioHang = require('../models/ChiTietGioHang');
 const ThanhToan = require('../models/ThanhToan');
 const DonHang = require('../models/DonHang');
 const ChiTietDonHang = require('../models/ChiTietDonHang');
+const NguoiDung = require('../models/NguoiDung');
 
 async function getCart(id_tai_khoan) {
-    const id_khach_hang = await GioHang.layIdKhachHangTheoTaiKhoan(id_tai_khoan);
+    const nguoidung = await NguoiDung.layNguoiDung(id_tai_khoan);
+    const id_khach_hang = nguoidung.id_nguoi_dung;
     if (!id_khach_hang) return [];
     const id_gio_hang = await GioHang.layIdGioHangTheoKhachHang(id_khach_hang);
     if (!id_gio_hang) return [];
@@ -17,7 +19,8 @@ async function getCart(id_tai_khoan) {
 }
 
 async function checkout(id_tai_khoan, paymentMethod) {
-    const id_khach_hang = await GioHang.layIdKhachHangTheoTaiKhoan(id_tai_khoan);
+    const nguoidung = await NguoiDung.layNguoiDung(id_tai_khoan);
+    const id_khach_hang = nguoidung.id_nguoi_dung;
     const id_gio_hang = await GioHang.layIdGioHangTheoKhachHang(id_khach_hang);
     const chiTiet = await ChiTietGioHang.layChiTietGioHang(id_gio_hang);
 
@@ -55,14 +58,16 @@ async function checkout(id_tai_khoan, paymentMethod) {
 }
 
 async function removeFromCart(id_tai_khoan, id_san_pham) {
-    const id_khach_hang = await GioHang.layIdKhachHangTheoTaiKhoan(id_tai_khoan);
+    const nguoidung = await NguoiDung.layNguoiDung(id_tai_khoan);
+    const id_khach_hang = nguoidung.id_nguoi_dung;
     const id_gio_hang = await GioHang.layIdGioHangTheoKhachHang(id_khach_hang);
     await ChiTietGioHang.removeItem(id_gio_hang, id_san_pham);
     return { success: true };
 }
 
 async function addToCart(id_tai_khoan, id_san_pham, so_luong = 1) {
-    const id_khach_hang = await GioHang.layIdKhachHangTheoTaiKhoan(id_tai_khoan);
+    const nguoidung = await NguoiDung.layNguoiDung(id_tai_khoan);
+    const id_khach_hang = nguoidung.id_nguoi_dung;
     const id_gio_hang = await GioHang.layIdGioHangTheoKhachHang(id_khach_hang);
     const sp = await ChiTietGioHang.layChiTietSanPham(id_san_pham);
     if (!sp) throw new Error('Không tìm thấy sản phẩm');
@@ -80,7 +85,8 @@ async function addToCart(id_tai_khoan, id_san_pham, so_luong = 1) {
 }
 
 async function updateQuantity(id_tai_khoan, id_san_pham, so_luong) {
-    const id_khach_hang = await GioHang.layIdKhachHangTheoTaiKhoan(id_tai_khoan);
+    const nguoidung = await NguoiDung.layNguoiDung(id_tai_khoan);
+    const id_khach_hang = nguoidung.id_nguoi_dung;
     const id_gio_hang = await GioHang.layIdGioHangTheoKhachHang(id_khach_hang);
     if (so_luong <= 0) {
         await ChiTietGioHang.removeItem(id_gio_hang, id_san_pham);

@@ -6,27 +6,18 @@ class GioHang {
         this.tong_gia_gio_hang = tong_gia_gio_hang;
     }
     
-    static async layIdKhachHangTheoTaiKhoan(id_tai_khoan) {
-    const { data, error } = await supabase
-        .from('khachhang') 
-        .select('id_khach_hang')
-        .eq('id_khach_hang', id_tai_khoan)
-        .single();
-    if (error) throw new Error(error.message);
-    return data ? data.id_khach_hang : null;
-}
     // Trong model GioHang.js
-static async layIdGioHangTheoKhachHang(id_khach_hang) {
-    const { data, error } = await supabase
-        .from('khachhang') // Đúng bảng giỏ hàng
-        .select('id_gio_hang')
-        .eq('id_khach_hang', id_khach_hang)
-        .single();
-    if (error) throw new Error(error.message);
-    return data ? data.id_gio_hang : null;
-}
+    static async layIdGioHangTheoKhachHang(id_khach_hang) {
+        const { data, error } = await supabase
+            .from('khachhang') // Đúng bảng giỏ hàng
+            .select('id_gio_hang')
+            .eq('id_khach_hang', id_khach_hang)
+            .single();
+        if (error) throw new Error(error.message);
+        return data ? data.id_gio_hang : null;
+    }
 
-    // Lấy thông tin giỏ hàng theo id_gio_hang
+        // Lấy thông tin giỏ hàng theo id_gio_hang
     static async layGioHangTheoId(id_gio_hang) {
         const { data, error } = await supabase
             .from('giohang')
@@ -46,7 +37,7 @@ static async layIdGioHangTheoKhachHang(id_khach_hang) {
         }
         return data[0];
     }
-     
+        
     
 }
 
